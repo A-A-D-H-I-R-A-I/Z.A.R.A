@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Zara.Common;
 using Zara.Data;
+using Zara.Logic;
 
 namespace Zara.Api;
 
@@ -9,6 +11,8 @@ internal static class Startup
 	internal static void AddServices(this IServiceCollection services, IConfiguration configuration)
 	{
 		services.AddDatabaseContext(configuration);
+
+        services.AddApplicationServices();
 
 		services.AddControllers();
 
@@ -37,5 +41,10 @@ internal static class Startup
 	{
 		services.AddDbContext<ZaraDataContext>(options => options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 	}
+
+    private static void AddApplicationServices(this IServiceCollection services)
+    {
+        services.AddScoped<IPasswordManagerFacade, PasswordManagerFacade>();
+    }
 	#endregion
 }
