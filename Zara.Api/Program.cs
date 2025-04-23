@@ -7,7 +7,7 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddServices();
+        builder.Services.AddServices(builder.Configuration);
 
         WebApplication app = builder.Build();
         
